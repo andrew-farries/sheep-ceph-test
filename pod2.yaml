@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: bbox2
+  name: bbox2
+spec:
+  volumes:
+  - name: myvol
+    persistentVolumeClaim:
+      claimName: pvc-based-on-snapshot
+  containers:
+  - args:
+    - sleep
+    - "3600"
+    image: busybox
+    name: bbox
+    volumeMounts:
+    - name: myvol
+      mountPath: /stuff
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
